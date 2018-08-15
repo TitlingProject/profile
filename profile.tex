@@ -1,0 +1,482 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[x11names,table]{xcolor}
+\usepackage{graphicx}
+\usepackage{apacite}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{multirow,booktabs,setspace,caption}
+\usepackage{tikz}
+\usepackage{subfigure}
+\usepackage{lastpage}
+
+\DeclareCaptionLabelSeparator*{spaced}{\\[2ex]}
+
+\captionsetup[table]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
+
+\captionsetup[figure]{labelsep=period,labelfont={bf,it},justification=centering,singlelinecheck=false,font=doublespacing}
+
+\usepackage{fancyhdr}
+% Usar el estilo definido
+\pagestyle{fancy}
+\fancyhf{} % borra cabecera y pie actuales
+\rhead{
+	\begin{picture}(0,0)
+	% Figura
+	\put(-10,2){\includegraphics[width =12mm]{dcc.jpg}}
+	\end{picture}
+}
+\lhead{ \small \textbf{Departamento de Ciencias de la Computación} \\
+	\textbf{Ingenieria en Sistemas e Informatica}}
+\fancyfoot[LE,RO]{ Pág. \thepage$/$\pageref{LastPage} } % Left side on Even pages; Right side on Odd pages
+
+\renewcommand{\tablename}{Tabla}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\begin{center}
+			\includegraphics[scale=0.25]{LOGO-PRINCIPAL}
+			\\
+			\vspace{15mm}
+			
+			\textbf{DEPARTAMENTO DE CIENCIAS DE LA COMPUTACIÓN}\\
+			
+			\vspace{20mm}
+			
+			\textbf{CARRERA DE INGENIERÍA EN SISTEMAS E INFORMATICA}\\
+			
+			\vspace{20mm}
+			
+			\textbf{TEMA:}\\
+			\textbf{
+				``Sistema de navegación inteligente de un vehí­culo aéreo no tripulado (UAV)  para evasión de obstáculos basado en aprendizaje automático."}
+			
+			\vspace{15mm}
+			
+			\begin{table}[htpb]
+				\centering
+				\begin{tabular}{ >{\columncolor[HTML]{b7c0ce}}c }
+					\hline
+					\textbf{PLAN DE PROYECTO DE INVESTIGACIÓN} \\ \hline
+				\end{tabular}
+			\end{table}
+			
+			\vspace{15mm}
+			
+			TRABAJO DE TITULACIÓN, PREVIO A LA OBTENCIÓN DEL TÍTULO DE INGENIERO EN SISTEMAS E INFORMÁTICA\\
+			
+			\vspace{15mm}
+			
+			\textbf{PROPUESTO:}\\
+			Luis Iván Espín Velasco
+			
+			\vspace{15mm}
+			
+			\textbf{SANGOLQUÍ}\\
+			\today
+		\end{center}
+	\end{titlepage}
+	
+	\tableofcontents
+	
+	\newpage
+	\listoffigures
+	\listoftables
+	
+\newpage
+\section{TÍTULO DEL PROYECTO}
+
+Sistema de navegación inteligente de un vehículo aéreo no tripulado (UAV)  para evasión de obstáculos basado en aprendizaje automático.
+
+\section{ÁREA DE CONOCIMIENTO}
+
+\begin{itemize}
+	\item Tecnologías de la información y la comunicación.
+	\begin{itemize}
+		\item Inteligencia Artificial (AI).
+		\item Programación. 
+	\end{itemize}
+\end{itemize}
+
+\section{ANTECEDENTES}
+
+En la actualidad los vehículos aéreos no tripulados (UAV)  o robots aéreos son utilizados en diferentes áreas de la ingeniería y la investigación; el interés por el desarrollo de este tipo de tecnología en centros de investigación y en el sector empresarial se ha incrementado en los últimos años \cite{barrientos2007vehiculos}. \\
+
+El desarrollo de la tecnologí­a para vehí­culos aéreos no tripulados (UAV) ha mejorado respecto a la capacidad de control aéreo y sus funcionalidades; por ejemplo, algunos mecanismos de control automático han sido empleados para ejecutar planes de vuelos preestablecidos. Sin embargo, en la literatura revisada se ha encontrado limitantes relacionados con el tamaño y el peso de los dispositivos utilizados. La mayoría de los dispositivos empleados para que los  UAVs sean capaces de detectar y responder en su entorno local, cambiando su altura y trayectoria de vuelo para evitar colisionar con otros objetos en su camino, no se encuentran a bordo del UAV.\\
+
+Además, se requiere que los UAVs dispongan de un sistema automático que les permita alcanzar cierto nivel de autonomí­a confiable y sobre todo para evitar colisiones mientras ejecuta tareas o misiones como: revisar lí­neas de energí­a eléctrica, entregar suministros médicos en una emergencia, levantamientos topográficos, detección de plagas, ayuda en operaciones de búsqueda y rescate, entre otros. \\
+
+Trabajos previos realizados con vehí­culos aéreos no tripulados han demostrado que los UAVs están siendo controlados mediante dispositivos de radio control o desde un computador. Cuando un UAV es controlado por medio de un computador se ejecutan varios procesos que  demandan de un elevado costo computacional, por esta razón la mayorí­a de los sistemas de navegación existentes, se ejecutan de forma remota en unidades de cómputo externas.\\
+
+En este contexto, en el presente proyecto propone una solución tecnológica que consiste en crear una arquitectura de hardware y software a bordo del UAV que permita controlar el sistema de navegación, aplicando técnicas de aprendizaje automático. Se pretende desarrollar una red neuronal para el reconocimiento de objetos rígidos y estáticos. El UAV que se utilizará es controlado por  un procesador a bordo y varios sensores, los dispositivos que se integrarán en el UAV permitirán que se desplace de forma autónoma.
+
+\newpage
+\section{PLANTEAMIENTO DEL PROBLEMA}
+
+Existen diferentes tipos de vehículos aéreos no tripulados (UAV), estos robots aéreos estan compuestos de un controlador de vuelo y  diferentes elementos que le permiten volar. Sin embargo para que un vehículo aéreo no tripulado (UAV) se considere como autónomo o semiautónomo se deben considerar varios factores. \\
+
+Los UAVs autónomos o semiautónomos basados en visión por computador exigen una arquitectura robusta para su funcionamiento. La mayorí­a de las soluciones existentes utilizan una arquitectura de sistemas digitales integrados a un controlador de vuelo y a varios sensores, que permiten que el vehículo aéreo no tripulado se desempeñe de forma autónoma. Otros UAVs teledirigidos utilizan una estación de monitoreo y control como unidad de procesamiento para que funcionen de forma autónoma dentro de su rango de alcance. \\
+
+Sin embargo, estas soluciones tienen varias limitantes como el coste de una arquitectura digital de alto desempeño o la implementación de estaciones para control y monitoreo de la información transmitida en tiempo real. Otro de los inconvenientes es la cantidad de los UAVs existentes en el mercado destinados a uso doméstico y hasta de diversión. \\
+
+La presente investigación plantea una solución tecnológica, diseñada desde el punto de vista de la ingeniería en sistemas e informática, la cual desea integrar un vehículo aéreo no tripulado (UAV) y una arquitectura de software para detectar y evadir obstáculos de forma autónoma, esta solución de bajo coste pretende conectarse a diferentes controladores de vuelo, para permitir que diferentes drones (UAV) puedan evadir y detectar obstáculos según su trayectoria. \\
+
+Esta solucion podria ser una alternativa para resolver los problemas mencionados y al mismo tiempo un apoyo al desarrollo e investigación de vehículos aéreos no tripulados (UAV) autónomos y semiautónomos.
+
+\newpage
+\section{ESTADO DEL ARTE}
+
+Para analizar el estado del arte acerca de sistemas de control inteligente de  vehículos aéreos no tripulados (UAV) para evasión de obstáculos basados en técnicas de aprendizaje automático, se realizó un proceso de revisión de literatura inicial utilizando en las guías de revisión sistemática de la literatura propuestas por \cite{budgen2006performing}. Las actividades consideradas para este proceso se muestran en la figura \ref{fig:estadoArte} y se describen a continuación.
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[scale=0.6]{estado_del_arte.png}
+		\caption{Proceso de construcción del estado del arte.}
+		\small Fuente: Elaboración propia
+		\label{fig:estadoArte}
+	\end{center}
+\end{figure}
+
+\subsection{Planteamiento de la revisión de literatura}
+
+En esta fase se realizó una breve descripción del problema de investigación para proporcionar un contexto para la búsqueda de estudios científicos; posteriormente se procedió a definir un objetivo de búsqueda y plantear preguntas de investigación para alinear la búsqueda en relación al problema de investigación y finalmente se definieron los criterios de inclusión y exclusión.
+
+\subsection{Conformación del grupo de control (GC) y extracción de palabras relevantes para la investigación}
+
+Según \cite{petersen2008systematic} un paso fundamental de un mapeo sistemático de literatura es definir o delimitar los artículos que se consideren relevantes para la investigación, eliminando aquellos que solo mencionan enfoque substancia de la temática principal. \\
+
+Fue necesaria la participación de al menos cuatro investigaciones. Cada investigación propuso estudios que podrían ser parte del grupo de control. Posteriormente se realizó una validación cruzada donde se estableció finalmente el grupo de control, el cual se indica en la tabla \ref{tab:grupoControl}.
+
+\newpage
+\begin{table}[htpb]
+	\caption{Grupo de Control.}
+	\begin{tabular}{ p{6cm} p{3cm} p{5cm} }
+		\toprule
+		Título & Cita & Palabras Clave \\
+		\midrule
+		Sistema de posicionamiento para un drone & \cite{rodriguez2015sistema} & {\small  drone, robótica, visión artificial, sistemas empotrados, 
+			localización.} \\
+		
+		Control Visual de un Vehículo Aéreo Autónomo Usando Detección y Seguimiento de Características en Espacios Exteriores & \cite{mejias2006control} & {\small control visual, UAV, detección, seguimiento.} \\
+		
+		Reconocimiento de patrones numéricos para vuelo
+		controlado de un AR drone utilizando redes neuronales
+		artificiales & \cite{rodriguez2015reconocimiento} & {\small segmentación de caracteres, UAV , procesamiento de imágenes, filtro Sobel, detección de bordes, redes neuronales artificiales.} \\
+		
+		Control por visión de un cuadricóptero utilizando ROS & \cite{calderon2014control} & {\small control visual, UAV, ROS.} \\
+		\bottomrule
+	\end{tabular}
+	
+	\bigskip
+	\small Fuente: Elaboración propia.
+	\label{tab:grupoControl}
+\end{table}
+
+Después de analizar los estudios del grupo de control, se seleccionaron las palabras más relevantes respecto al objetivo de la búsqueda, en este caso fueron: ``UAV", ``Detección", ``Control Visual". Las palabras descritas tienen tienen similitudes, semejanzas o relaciones que pueden variar según el caso de búsqueda:
+
+\begin{itemize}
+	\item Control Visual: visión artificial, visión por computador
+	\item UAV: vehículo aéreo no tripulado, drone
+	\item Control Inteligente: se relaciona con control visual y UAV lo que hace referencia a UAVs autónomos y semiautónomos
+	\item Detección: para detectar hay que sentir o visualizar el objeto
+	\item Evasión : para evadir primero hay que detectar algo.
+	\item Redes Neuronales: este término está relacionado con visión artificial
+	\item Aprendizaje automático: este término está relacionado con redes neuronales
+\end{itemize} 
+
+\subsection{Construcción y afinación de la cadena de búsqueda}
+
+Con las palabras clave que fueron obtenidas de los artículos científicos del grupo de control se conformó la cadena de búsqueda:
+
+\begin{itemize}
+	\item ``UAV", ``Evasion", ``Computer Vision"
+\end{itemize}
+
+\newpage
+Sin embargo, esta cadena obtuvo un gran número de investigaciones inclusive aquellas que fueron descartadas. Después de realizar varias pruebas con distintas combinaciones de cadenas, se ejecutaron las siguientes:
+
+\begin{itemize}
+	\item ``Smart Control", ``UAV", ``Evasion", ``Computer Vision"
+	\item ``Autonomous", ``UAV", ``Evasion", ``Computer Vision"
+\end{itemize}
+
+
+Los resultados obtenidos se muestran en la tabla \ref{tab:resultadosBusqueda}. \\
+
+\begin{table}[htpb]
+	\caption{Resultados de las busquedas.}
+	\begin{tabular}{ p{2.5cm} p{5.75cm} p{5.75cm} }
+		\toprule
+		Base Digital & ``Smart Control", ``UAV", ``Evasion Obstacles", ``Computer Vision" & ``UAV", ``Autonomous", ``Evasion Obstacles", ``Computer Vision" \\
+		\midrule
+		SienceDirect & 7 & 16 \\
+		Springer & 13 & 52 \\
+		ProQuest & 21 & 24 \\
+		IEEE Xplore & 6 & 531 \\
+		\bottomrule
+	\end{tabular}
+	
+	\bigskip
+	\small Fuente: Elaboración propia.
+	\label{tab:resultadosBusqueda}
+\end{table}
+
+\subsection{Selección de estudios}
+
+Al aplicar las cadenas de búsqueda en la bases digitales  obtuvo alrededor de 670 resultados relacionados con el tema el cual se consideró un número de artículos manejable, adicionalmente los artículos apuntan y se encuentra dentro del grupo de control. Sin embargo de todas las bases digitales presentadas en la tabla 2 se escogieron las cadenas de búsqueda con los resultados más bajos y se analizaron de acuerdo al grupo de control. \\
+
+De los 47 resultados obtenidos se seleccionaron los estudios realizados a partir del año 2005. Debido al tipo de arquitectura que utilizan estos drone (UAV), los artículos que más se ajustan a la temática se muestran en las tablas \ref{tab:estudiosSeleccionados1} y \ref{tab:estudiosSeleccionados2}. \\
+
+\begin{table}[htpb]
+	\caption{Estudios Seleccionados I.}
+	\begin{tabular}{ p{2cm} p{9cm} p{3cm} }
+		\toprule
+		Código & Titulo & Palabras Clave \\
+		\midrule
+		EP1 & Control Visual de un Vehículo Aéreo Autónomo Usando Detección y Seguimiento de Características en Espacios Exteriores & {\small control visual, UAV, detección, seguimiento.} \\
+		
+		EP2 & Control por visión de un cuadricoptero utilizando ROS & {\small control visual, UAV, detección, seguimiento.} \\
+		
+		EP3 & Sistema de posicionamiento para un drone & {\small  drone, robótica, visión artificial.} \\
+		
+		\bottomrule
+	\end{tabular}
+	
+	\bigskip
+	\small Fuente: Elaboración propia.
+	\label{tab:estudiosSeleccionados1}
+\end{table}
+
+\begin{table}[htpb]
+	\caption{Estudios Seleccionados II.}
+	\begin{tabular}{ p{2cm} p{8cm} p{4cm} }
+		\toprule
+		Código & Titulo & Palabras Clave \\
+		\midrule
+		EP4 & Reconocimiento de patrones numéricos para vuelo
+		controlado de un AR drone utilizando redes neuronales
+		artificiales & {\small segmentación de caracteres, UAV , procesamiento de imágenes, filtro Sobel, detección de bordes, redes neuronales artificiales.} \\
+		
+		EP5 & A Computer Vision Based Algorithm for
+		Obstacle Avoidance & {\small Embedded systems, Image processing, Obstacle detection, UAV.} \\
+		
+		EP6 & PIXHAWK: A micro aerial vehicle design for autonomous flight using onboard computer vision & {\small Micro aerial vehicles, Quadrotor, Computer
+			vision, Stereo vision} \\
+		
+		EP7 & Obstacle Avoidance Based-Visual Navigation for
+		Micro Aerial Vehicles & {\small UAVs, MAV, obstacle detection, SURF, control system, obstacle avoidance} \\
+		
+		E78 & High-speed autonomous obstacle avoidance with pushbroom stereo & {\small UAVs, MAV,camera stereo, obstacle avoidance} \\
+		
+		\bottomrule
+	\end{tabular}
+	
+	\bigskip
+	\small Fuente: Elaboración propia.
+	\label{tab:estudiosSeleccionados2}
+\end{table}
+
+\newpage
+\subsection{Elaborar el estado del arte}
+
+\subsubsection{EP1 : Control visual de un vehiculo aereo autonomo usando detección y seguimiento de características en espacios exteriores}
+
+En el trabajo presentado por \cite{mejias2006control}  se diseñan robots aéreos guiados por visión. El uso de sensores visuales en robots aéreos para realizar tareas como evasión de obstáculos, seguimiento de objetivos o detección de caracter??sticas salientes, permite a tales robots servir de visores inteligentes para aplicaciones de inspección, patrullaje y monitoreo,
+reconstrucción digital aérea, etc. Más aún, el uso de la visión por computador puede reducir la incertidumbre e incrementar la versatilidad y desempeño general cuando se realizan tareas robotizadas. Esta trabajo de investigación aborda la problemática del control servo visual de un veh??culo aéreo autónomo en espacios exteriores, en especial de un helicóptero autónomo. 
+
+\subsubsection{EP2 : Control por visión de un cuadricoptero utilizando ROS}
+
+En este  trabajo de investigación los autores \cite{calderon2014control} recalcan a la Robótica y a la estrecha relación con la inteligencia artificial. Al igual que en los humanos, la entrada de datos más importante es la visión. En un sistema inteligente, los autores vinculan una cámara con una serie de
+sensores; esto se conoce como visión artificial, que permite a un sistema percibir objetos y detalles de forma que pueda reaccionar y actuar frente a ellos. La visión artificial comprende una gran variedad de procesos ópticos mediante los cuales un sistema inteligente pueda ser capaz de encontrar información de un entorno para su interpretación mediante el uso del computador. Los investigadores recalcan el uso de software existen  para desarrollar este tipo de aplicaciones, pero en este trabajo utilizan un framework relativamente nuevo diseñado exclusivamente para robótica; ROS (Robot Operating System), un marco de código abierto que proporciona toda una serie de servicios y librerías que simplifican considerablemente la creación de aplicaciones complejas para robots.
+
+\subsubsection{EP3 : Sistema de posicionamiento para un drone}
+
+El trabajo de investigación presentado por \cite{rodriguez2015sistema} se habla sobre el desarrollo de un sistema de posicionamiento basado en odometría visual para un drone que vaya a utilizarse en interiores o en lugares en donde no se dispone señal GPS. Para ello los autore han usado ROS, un framework para el desarrollo de software para robots que provee la funcionalidad de un sistema operativo en un clúster heterogéneo. El trabajo se centra en el desarrollo de un módulo para ROS que se encargue de realizar la captura de una secuencia de imágenes del "suelo" y estimar su posición relativa al mismo a partir de la detección de desplazamiento entre las imágenes obtenidas. Dicho módulo ha de ejecutarse en un sistema empotrado con recursos limitados implícitamente por el consumo, volumen y peso máximo admisibles, por lo que la optimización y eficiencia de los algoritmos implicados adquieren enorme importancia.
+
+\subsubsection{EP4 : Reconocimiento de patrones numéricos para vuelo controlado de un AR drone utilizando redes neuronales artificiales}
+
+En este trabajo los autores \cite{rodriguez2015reconocimiento} utilizan la segmentación de letras mediante la cámara del Parrot AR Drone, con el objetivo de establecer una interacción de estímulo-respuesta, donde la imagen original en formato de combinación de colores Rojo, Verde y Azul (RGB) se segmenta por color (escogiendo el canal rojo). Los autores utilizaron inicialmente patrones numéricos libres de ruido y posteriormente  agregaron algunos pixeles a la imagen con el objetivo de hacer más robusto este conjunto de patrones, los cuales proporcionaron el conjunto de entrenamiento para la red neuronal y de esta forma se pudieron interpolar patrones nuevos. Para la segmentación los autores utilizaron técnicas de detección de bordes que incluyen el filtro de Sobel así como filtros para eliminación de ruido.
+
+\subsubsection{EP5 : A Computer Vision Based Algorithm for Obstacle Avoidance}
+
+Este artículo presenta la implementación de un algoritmo basado en técnicas elementales de visión por computadora que permiten a un UAV (Vehículo Aéreo No Tripulado) identificar obstáculos (incluyendo otro UAV) y evitarlos, usando solo una cámara trivial de 5MP y aplicando seis tratamientos matemáticos en la imagen. El algoritmo propuesto para este documento se aplicó en un dron en vuelo real. El algoritmo demostró ser bastante eficiente tanto para identificar obstáculos por delante y al transponer los mismos obstáculos. Otro resultado interesante es que el algoritmo puede identificar pequeños obstáculos móviles y evitar colisiones, por ejemplo, otros drones \cite{martins2018computer}.
+
+\subsubsection{EP6 : PIXHAWK: A micro aerial vehicle design for autonomous flight using onboard computer vision}
+
+En este artículo los autores \cite{meier2012pixhawk} presentan un novedoso sistema Quadrotor Micro Air Vehicle (MAV) diseñado para usar algoritmos de visión por computadora dentro del circuito de control de vuelo. La principal contribución es un sistema MAV que es capaz de ejecutar tanto el control de vuelo basado en la visión como la detección de obstáculos basada en la visión estereoscópica paralelamente en una computadora integrada a bordo del MAV. El diseño del sistema presenta la integración de una poderosa computadora a bordo y la sincronización de las mediciones de IMU-Visión mediante el sellado de tiempo del hardware, lo que permite la estrecha integración de las mediciones de la IMU en la línea de visión por computadora. Los autores evalúan la precisión de la estimación visual  basada en marcadores para el control de vuelo. 
+
+\subsubsection{EP7 : Obstacle Avoidance Based-Visual Navigation for Micro Aerial Vehicles}
+
+Este artículo se describe un sistema de prevención de obstáculos para vehículos aéreos no tripulados de bajo costo (UAV) usando la visión como la principal fuente de información a través de la cámara monocular a bordo. Para detectar obstáculos, el sistema propuesto compara la imagen obtenida en tiempo real del UAV con una base de datos de obstáculos que deben evitarse. En esta propuesta los autores \cite{aguilar2017obstacle}, incluyen un detector de punto de característica Funciones rápidas aceleradas (SURF) para la detección rápida de obstáculos y una ley de control para evitarlas. Además, muestran un algoritmo de recuperación de ruta. Nuestro método es atractivo para MAV compactos en los que no se implementarán otros sensores. El sistema fue probado en tiempo real en un microvehículo (MAV), para detectar y evitar obstáculos en un entorno controlado desconocido; los autores comparan su investigación con trabajos relacionados.
+
+\subsubsection{EP8: High-speed autonomous obstacle avoidance with pushbroom stereo}
+
+En este articulo los autores \cite{barry2018high} presentan un diseño y la implementación de un pequeño vehículo aéreo autónomo  capaz de volar a alta velocidad a través de complejos entornos naturales. Al utilizar solo el GPS y 2 cámaras ultrasónicas y el cálculo, realizamos la detección de obstáculos, la planificación y el control de retroalimentación en tiempo real. Presentamos un novedoso enfoque integrado para la percepción y el control mediante el uso de estéreo de barrido, que aprovecha el movimiento hacia adelante para permitir la detección y elusión eficiente de obstáculos utilizando procesadores livianos en un vehículo aéreo no tripulado. Nuestro uso de técnicas de planificación y control basadas en modelos nos permite rastrear trayectorias precisas que evitan los obstáculos identificados por el sistema de visión. Demostramos un sistema de trabajo completo para detectar obstáculos a 120 Hz y evitar árboles a una velocidad de hasta 14 m/s (31 MPH). 
+
+\subsection{Características del estado del arte}
+
+En los estudios analizados anteriormente, se puede notar que la mayoría de las soluciones presentadas dependen de  dispositivos externos para el procesamiento de imágenes, estas propuestas están basadas en arquitecturas de sistemas digitales o en unidades de control que se encargan de procesar y manipular al drone (UAV) de forma remota. Sin embargo la presente investigación analiza estos factores, para brindar una solución desde el punto de vista de la ingeniería en sistemas e informatica, optimizando recursos y generando un sistema inteligente que sea compatible con diferentes controladores de vuelo y de bajo coste.
+
+\newpage
+\section{OBJETIVOS}
+
+\subsection{Objetivo General}
+
+Implementar una arquitectura de hardware y software que permita a un vehículo aéreo no tripulado (UAV) detectar y evadir obstáculos utilizando técnicas de aprendizaje automático.
+
+\subsection{Objetivos Especificos}
+
+\begin{itemize}
+	\item Realizar el análisis del estado del arte mediante una revisión sistemática de literatura.
+	
+	\item Configurar una arquitectura hardware y software que se integre a un vehículo aéreo no tripulado (UAV).
+	
+	\item Desarrollar un módulo de detección y evasión de obstáculos.
+	
+	\item Evaluar y validar el sistema inteligente.
+	
+	\item Analizar y difundir de los datos obtenidos.
+\end{itemize}
+
+\section{JUSTIFICACIÓN}
+
+En la actualidad los vehículos aéreos no tripulados (UAV) o drones se encuentran en diferentes áreas, como en la ingeniería para realizar actividades de fotogrametría, cartografía y levantamientos topográficos o en la detección de plagas en cultivos por medio de cámaras multiespectrales, incluso en la industria cinematográfica para obtener emocionantes ángulos por medio cámaras integradas. Estos son varios ejemplos en los cuales, se puede apreciar el potencial de estos vehículos, sin embargo la mayoría de estos robots aéreos (UAV) son controlados por medio de estaciones de control, planes de vuelo preestablecidos, radio controles manuales, etc. \\
+
+Según \cite{gartner2017hypetendencias} las 3 mega tendencias que aseguran innovación y desarrollo en la empresas  tienen que ver con tecnologías como: machine learning, blockchain y drones comerciales (UAV),  estas tendencias según el ciclo hype tienen un tiempo de vida de desarrollo tecnologico y aplicación de más de 10 años, lo que asegura una inversión retornable, reflejando la importancia de crear nuevas aplicaciones relacionadas con el mundo de los vehículos aéreos no tripulados (UAV). \\
+
+En la presente investigación se pretende hacer un aporte tecnológico que ayude a mejorar las aplicaciones para las cuales los vehículos aéreos no tripuladas (UAV)  son utilizados, la cual consiste en dotar a un drone (UAV) de un cierto nivel de navegación autónomo, el cual percibe el entorno a través de imágenes y sensores para volar por sí solo, detectando y evadiendo  los obstáculos que se presenten en su trayectoria. \\
+
+Este proyecto de investigación utiliza un enfoque desde el punto de vista de la ingeniería en sistema e informática ya que se centra a el uso y configuración de hardware existente y el desarrollo de una arquitectura de software que se integre al controlador de vuelo de un vehículo aéreo no tripulado (UAV) para que este, pueda volar de forma autónoma.
+
+\newpage
+El objetivo es integrar tecnologías de hardware y software libre, en una arquitectura que se pueda conectar de forma rapida y segura a un vehículo aéreo no tripulado (UAV) , esta arquitectura se basa en la optimización de recursos y peso, como se ha mencionado anteriormente este tipo de sistemas inteligentes requiere de un poder de cómputo alto, por lo cual la mayoría de soluciones o proyectos relacionados utliza costosas estaciones de control remoto como unidades de procesamiento y arquitecturas de sistemas digitales que se integran a vehículos aéreos no tripulados (UAV) con partes de un mismo fabricante, lo que genera altos costos de desarrollo tecnológico.
+
+\section{ALCANCE}
+
+Esta investigación propone una configuración de componentes hardware libres y propietarios integrados o conectados entre sí, para trabajar con una arquitectura de software con diferentes aplicaciones que interactúan entre sí, como el procesamiento de imágenes y el control del vehículo aéreo no tripulado (UAV), el funcionamiento de esta arquitectura tendrá como resultado la detección y evasión de obstáculos según una trayectoria.\\
+
+Los datos proporcionados por el drone (UAV)  y la arquitectura mencionada, utilizará un conjunto de herramientas open source las cuales se comunicaran con el sistema de navegación inteligente desarrollado, este sistema será el encargado de ejecutar diferentes algoritmos que le ayuden a detectar obstáculos y al mismo tiempo  controlar el vehículo aéreo no tripulado (UAV) para que este siga su trayectoria sin colisionar con algún objeto. \\
+
+Los datos de navegación obtenidos en los vuelos del drone (UAV) se podrán visualizar  a través de una interfaz gráfica, estos datos servirán para realizar análisis que apoyen al desarrollo del sistema inteligente. Sin embargo, para delinear de forma adecuada el alcance de la investigación planteada, se proponen varias preguntas de investigación asociadas a los objetivos específicos, tal como se muestra en la tabla \ref{tab:pregInvs}.
+
+\begin{table}[htpb]
+	\caption{Preguntas de investigación.}
+	\scalebox{0.95}{\begin{tabular}{ p{4cm} p{6cm} p{6cm} }
+			\toprule
+			Objetivo específico & Preguntas de investigación  & \\
+			\midrule
+			
+			1. Realizar el análisis del estado del arte mediante una revisión sistemática de literatura. & ¿Qué método se utilizará para realizar el análisis del estado del arte? & ¿Cual es el propósito de realizar el análisis del estado del arte? \\
+			
+			2. Configurar una arquitectura hardware y software que se integre a un vehículo aéreo no tripulado (UAV). & ¿Que tipo de hadware se puede integrar aun drone (UAV)? & ¿Que permite este tipo de integraciones?\\
+			
+			3. Desarrollar un módulo de detección y evasión de obstáculos. & ¿Para que sirven los modulo de detección y evasión de obstaculos? & ¿Como funciona este modulo? \\
+			
+			4. Evaluar y validar el sistema de navegación inteligente & ¿Como se evalua el sistema inteligente? & ¿Porque es necesario validar el sistemea de navegación inteligente? \\
+			
+			5. Analizar y difundir los datos obtenidos & ¿Como se analizaran los datos obtenidos? & ¿Para que se sirve la difución de datos? \\
+			
+			\bottomrule
+		\end{tabular}}
+		
+		\bigskip
+		\small Fuente: Elaboración propia.
+		\label{tab:pregInvs}
+	\end{table}
+	
+	
+	\section{DEFINICIÓN DE LA INVESTIGACIÓN }
+	
+	\subsection{Investigación exploratoria de método inductivo}
+	
+	La investigación es de carácter exploratorio debido a que parte desde el punto de vista de la ingeniería en sistema e informática ya que se centra en analizar e investigar  aspectos concretos los cuales aún no han sido analizados a profundidad. Y será de método inductivo debido a que se basa en la obtención de conclusiones a partir de la observación de hechos. Adicionalmente la investigación es de carácter cualitativo.
+	
+	\subsection{Metodología Design Science}
+	
+	Design science es una metodología aplicada comúnmente a investigaciones en el área de Ciencias de la Computación, y consiste en el diseño y la investigación de artefactos que pertenezcan al contexto. Los artefactos pueden ser de cuatro tipos: constructos (vocabulario y símbolos), modelos (abstracciones y representaciones), métodos (algoritmos y prácticas) o instanciaciones (sistemas prototipos e implementados). Dichos artefactos están diseñados para interactuar con un contexto problemático a fin de mejorar o solucionar algo en ese contexto. Esta metodología es de naturaleza iterativa y consta de las siguientes fases: diseño del artefacto, construcción del artefacto y evaluación del artefacto. \\
+	
+	El objetivo de Design Science es desarrollar conocimiento, de modo que el profesional de una disciplina específica lo pueda utilizar para diseñar soluciones en su campo de estudio. Este conocimiento se alcanza mediante la construcción y aplicación de un artefacto diseñado para el dominio de la problemática tratada \cite{peffers2007design}.
+	
+	
+	\section{HIPÓTESIS DE TRABAJO}
+	
+	\section{HERRAMIENTAS}
+	
+	\subsection{Visual Studio Code}
+	
+	Es un editor de código fuente desarrollado por Microsoft para Windows , Linux y macOS. Incluye soporte para la depuración, control integrado de Git , resaltado de sintaxis, finalización inteligente de código, fragmentos y refactorización de código. También es personalizable, por lo que los usuarios pueden cambiar el tema del editor , los atajos de teclado y las preferencias. Es gratuito y de código abierto, aunque la descarga oficial está bajo software propietario.? Visual Studio Code se basa en Electron, un framework que se utiliza para implementar aplicaciones Node.js para el escritorio que se ejecuta en el motor de diseño Blink. Aunque utiliza el framework Electron, el software no usa Atom y en su lugar emplea el mismo componente editor (``Monaco") utilizado en Visual Studio Team Services (anteriormente llamado Visual Studio Online).
+	
+	\subsection{Ubuntu 16.04.4 LTS (Xenial Xerus)}
+	
+	Es un sistema operativo de código abierto para computadores. Es una distribución de Linux basada en la arquitectura de Debian. Actualmente corre en computadores de escritorio y servidores, en arquitecturas Intel, AMD y ARM. Está orientado al usuario promedio, con un fuerte enfoque en la facilidad de uso y en mejorar la experiencia del usuario. Está compuesto de múltiple software normalmente distribuido bajo una licencia libre o de código abierto. Estadísticas web sugieren que la cuota de mercado de Ubuntu dentro de las distribuciones Linux es, aproximadamente, del 52\%, y con una tendencia a aumentar como servidor web.
+	
+	\subsection{\LaTeX}
+	
+	Es un sistema de composición tipográfica de alta calidad que incluye funcionalidades diseñadas para la producción de documentos técnicos y científicos, lo que lo ha convertido en el estándar para la difusión y publicación de este tipo de documentos; se utilizará para presentar los resultados obtenidos del caso de estudio de la investigación en un documento formal que se pueda utilizar como base de un artículo científico.
+	
+	\section{FACTIBILIDAD DEL PROYECTO}
+	
+	\subsection{FACTIBILIDAD TÉCNICA}
+	
+	Las herramientas necesarias para el desarrollo e implementación de la presente investigación son financiadas por el autor. Varios de los componentes software y hardware son open source, lo que significa que son gratis o de un coste bajo o accesible. En conclusión, técnicamente es factible ya que todas las herramientas hardware y software están al alcance del investigador.
+	
+	\subsection{FACTIBILIDAD OPERATIVA}
+	
+	La investigación plantea varios desafíos en el desarrollo e implantación, sin embargo el investigador cuenta con el conocimiento, las bases técnicas para el desarrollo del proyecto, así como también del sujeto de prueba que en este caso sería el vehículo aéreo no tripulado (UAV) el cual estaría se sometería a todas las pruebas que se realicen durante el proyecto. Cabe recalcar que se cuenta con conocimiento y el apoyo del centro de investigación de aplicaciones militares (CICTE) el cual cuenta con líneas de investigación con el tema de drones (UAV).
+	
+	\subsection{FACTIBILIDAD ECONÓMICA}
+	
+	Los gastos estarán a cargo del investigador.
+	
+	\begin{table}[htpb]
+		\caption{Análisis Económico.}
+		\begin{tabular}{lr}
+			\toprule
+			Descripción & Costo \\
+			\midrule
+			Servicios Básicos                   & 120.00\$                      \\
+			Papelería e Impresiones             & 100.00\$                      \\
+			Transporte                          & 80.00\$                       \\
+			Licencias de Software               & 0.00\$                        \\
+			PC                                  & 1200.00\$                     \\
+			Open Hardware                       & 
+			65.00\$                       \\
+			Unidad de Procesamiento Portatil    & 
+			200.00\$                       \\
+			Drone                               & 650.00\$                      \\
+			Hora de Desarrollo e Implementación & 4200\$                        \\
+			\multicolumn{1}{r}{\textbf{TOTAL}}  & \textbf{6615.00\$} \\  
+			
+			\bottomrule
+		\end{tabular}
+		
+		\bigskip
+		\small Fuente: Elaboración propia.
+		\label{tab:facteco}
+	\end{table}
+	
+	\newpage
+	\section{TEMARIO}
+	
+	\newpage
+	\section{CRONOGRAMA}
+	
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[angle=90,scale=0.65]{cronogramaProyectoTitulacion.jpg}
+			\caption{Cronograma Proyecto Titulación}
+			\small Fuente: Elaboración propia
+			\label{fig:cronograma}
+		\end{center}
+	\end{figure}
+	
+	\newpage
+	\section{BIBLIOGRAFÍA PRELIMINAR}
+	
+	\bibliographystyle{apacite}
+	\bibliography{perfil000v5}
+\end{document}
